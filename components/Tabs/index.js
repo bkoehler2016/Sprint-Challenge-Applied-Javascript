@@ -16,14 +16,14 @@ function newTab(info) {
     return tab;
 }
 
-const entryPoint = document.querySelector('.topics');
+const topics = document.querySelector('.topics');
 
 axios
     .get('https://lambda-times-backend.herokuapp.com/topics')
     .then(response => {
         response.data.topics.forEach(item => {
             const newTopic = newTab(item);
-            entryPoint.appendChild(newTopic);
+            topics.appendChild(newTopic);
         });
     })
     .catch(error => {
