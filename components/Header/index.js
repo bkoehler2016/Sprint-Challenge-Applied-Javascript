@@ -21,7 +21,7 @@ function Header() {
 
     date.textContent = 'November 8, 2019';
     headTitle.textContent = 'Lambda Times';
-    temp.textContent = '78°';
+    temp.textContent = '98°';
 
     header.classList.add('header');
     date.classList.add('date');
