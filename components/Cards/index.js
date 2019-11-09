@@ -20,7 +20,6 @@
 
 
 function cardMaker(headlineContent, authorImage, authorsName) {
-
     card = document.createElement('div');
     headline = document.createElement('div');
     author = document.createElement('div');
@@ -28,13 +27,52 @@ function cardMaker(headlineContent, authorImage, authorsName) {
     authorImg = document.createElement('img');
     authorName = document.createElement('span');
 
-    // Set Classes
-
     card.classList.add('card');
     headline.classList.add('headline');
     author.classList.add('author');
     imgContainer.classList.add('img-container');
 
-    // Adding Content
+    headline.textContent = headlineContent;
+    authorImg.src = authorImage;
+    authorName.textContent = authorsName;
 
+
+
+    card.appendChild(headline);
+    card.appendChild(author);
+    author.appendChild(imgContainer);
+    imgContainer.appendChild(authorImg);
+    author.appendChild(authorName);
+
+    return card;
 }
+
+cardContainer = document.querySelector('.cards-container');
+axios
+    .get('https://lambda-times-backend.herokuapp.com/articles')
+    .then(response => {
+        console.log(response.data.articles);
+        response.data.articles.bootstrap.forEach(i => {
+            let newCard = cardMaker(i.headline, i.authorPhoto, i.authorName);
+            cardContainer.appendChild(newCard);
+        });
+        response.data.articles.javascript.forEach(i => {
+            let newCard = cardMaker(i.headline, i.authorPhoto, i.authorName);
+            cardContainer.appendChild(newCard);
+        });
+        response.data.articles.jquery.forEach(i => {
+            let newCard = cardMaker(i.headline, i.authorPhoto, i.authorName);
+            cardContainer.appendChild(newCard);
+        });
+        response.data.articles.node.forEach(i => {
+            let newCard = cardMaker(i.headline, i.authorPhoto, i.authorName);
+            cardContainer.appendChild(newCard);
+        });
+        response.data.articles.technology.forEach(i => {
+            let newCard = cardMaker(i.headline, i.authorPhoto, i.authorName);
+            cardContainer.appendChild(newCard);
+        });
+    })
+    .catch(error => {
+        console.log("Error:", err);
+    });
